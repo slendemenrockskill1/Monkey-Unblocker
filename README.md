@@ -1,4 +1,4 @@
-# Galaxy
+# Void
 An intersetlar Proxy Site!
 
 
