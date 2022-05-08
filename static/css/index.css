@@ -152,7 +152,7 @@ html {
 }
 
 
-/* Cursor */
+
 
 .cursor {
     display: none;
@@ -230,7 +230,6 @@ html:not(html:hover) .cursor::after {
 }
 
 
-/* make center of planet transperant */
 
 @keyframes rotate {
     0% {
