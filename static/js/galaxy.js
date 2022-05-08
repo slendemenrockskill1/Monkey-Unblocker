@@ -1,8 +1,4 @@
-/*
 
-This file was built with tsc
-
-*/
 function randRange(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -19,11 +15,7 @@ function distance(dot1, dot2) {
         y2 = _a[3];
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
-// not used, but fun to write after figuring out the 2D version
-// function distance3D(dot1, dot2) {
-//   let [x1, y1, z1, x2, y2, z2] = [dot1[0], dot1[1], dot1[2], dot2[0], dot2[1], dot2[2]];
-//   return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 - z2, 2));
-// }
+
 function limitToCircle(x, y, a, b, r) {
     var dist = distance([x, y], [a, b]);
     if (dist <= r) {
@@ -44,7 +36,7 @@ function isInEllipse(mouseX, mouseY, ellipseX, ellipseY, ellipseW, ellipseH) {
 var IS_HIGH_RES = window.matchMedia("\n      (-webkit-min-device-pixel-ratio: 2),\n      (min--moz-device-pixel-ratio: 2),\n      (-moz-min-device-pixel-ratio: 2),\n      (-o-min-device-pixel-ratio: 2/1),\n      (min-device-pixel-ratio: 2),\n      (min-resolution: 192dpi),\n      (min-resolution: 2dppx)\n    ");
 var IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 var IS_HIGH_RES_AND_MOBILE = (IS_HIGH_RES.matches && IS_MOBILE);
-var Star = /** @class */ (function() {
+var Star =  (function() {
     function Star(container) {
         var size = container[0],
             depth = container[1];
@@ -58,11 +50,11 @@ var Star = /** @class */ (function() {
         this.x = randRange(-size, size);
         this.y = randRange(-size, size);
         this.z = randRange(0, depth);
-        // previous position for the trails
+
         this.px = this.x;
         this.py = this.y;
         this.pz = this.z;
-        // purple, green, and blue, but randomized ^.^
+
         this.color = "rgb(".concat(randRange(110, 200), ",").concat(randRange(110, 240), ",").concat(randRange(230, 255), ")");
     }
     Star.prototype.resetX = function() {
@@ -105,10 +97,7 @@ var Star = /** @class */ (function() {
             var slowBy = mapRange(this.z, 0, size, 0.3, 0.4);
             defaultSideSpeed *= slowBy;
         }
-        /*
-         * Easter Egg #1 ^.^
-         * uncomment the snippet below to make 'em wiggle
-         */
+
         let movementFuzz = Math.sin(deltaTime) * randRange(-50, 50);
         this.y -= movementFuzz;
         // move forward, obvi
@@ -124,27 +113,27 @@ var Star = /** @class */ (function() {
             this.pz = this.z;
             this.resetX();
             this.resetY();
-        } else if (this.z > depth) { // z positive
+        } else if (this.z > depth) { 
             this.z = 0;
             this.pz = this.z;
             this.resetX();
             this.resetY();
-        } else if (this.x < -fuzzySize) { // x negative
+        } else if (this.x < -fuzzySize) { 
             this.x = size;
             this.px = this.x;
             this.resetY();
             this.resetZ();
-        } else if (this.x > fuzzySize) { // x positive
+        } else if (this.x > fuzzySize) { 
             this.x = -size;
             this.px = this.x;
             this.resetY();
             this.resetZ();
-        } else if (this.y < -fuzzySize) { // y negative
+        } else if (this.y < -fuzzySize) { 
             this.y = size;
             this.py = this.y;
             this.resetX();
             this.resetZ();
-        } else if (this.y > fuzzySize) { // y positive
+        } else if (this.y > fuzzySize) { 
             this.y = -size;
             this.py = this.y;
             this.resetX();
@@ -162,7 +151,7 @@ var Star = /** @class */ (function() {
         var py = mapRange(this.py / this.pz, 0, 1, 0, height);
         var maxRadius = (IS_HIGH_RES.matches && IS_MOBILE) ? 4 : 2;
         var radius = Math.min(Math.abs(mapRange(this.z, 0, depth, maxRadius, 0.01)), maxRadius);
-        // star point
+
         context.beginPath();
         context.arc(sx, sy, radius, 0, 2 * Math.PI);
         context.fillStyle = this.color;
@@ -170,33 +159,21 @@ var Star = /** @class */ (function() {
         this.px = this.x;
         this.py = this.y;
         this.pz = this.z;
-        // star trail
+ 
         context.beginPath();
         context.moveTo(px, py);
         context.lineTo(sx, sy);
         context.lineWidth = radius;
         context.strokeStyle = this.color;
         context.stroke();
-        /*
-         * Easter Egg #2 ^.^
-         * uncomment the snippet below to add little tracer lines that follow the mouse/touch
-         */
-        // if (Math.min(width, height)/2 > distance([mouseX, mouseY], [sx, sy]) && this.z < depth/2) {
-        //   context.beginPath();
-        //   context.moveTo(sx, sy);
-        //   let [mX, mY] = limitToCircle(mouseX, mouseY, sx, sy, 50);
-        //   context.lineTo(mX, mY);
-        //   context.lineWidth = radius;
-        //   context.strokeStyle = this.color.replace(')', `, ${mapRange(this.z, 0, depth, 0.1, 0.6)})`);
-        //   context.stroke();
-        // }
+        
     };
     return Star;
 }());
 var getPointerInput = function(callback, element, delay) {
     if (element === void 0) { element = document; }
     if (delay === void 0) { delay = 600; }
-    // use a noop if there's no callback, but like, there should be a callback lol
+    
     callback = callback || (function(pointer) {
         console.error("PointerInput is missing a callback as the first argument");
     });
@@ -207,19 +184,19 @@ var getPointerInput = function(callback, element, delay) {
         isMoving: false,
         wasMoving: false
     };
-    var timer = false; // used to track when pointer motion stops
-    var animFrame = false; // debounces pointer motion so we don't do extra work needlessly
-    // this fn is called on touch and mouse events
+    var timer = false; 
+    var animFrame = false; 
+   
     var handlePointer = function(event) {
-        // if there's an animation frame already for this handler, cancel it
+        
         if (animFrame) {
             animFrame = window.cancelAnimationFrame(animFrame);
         }
-        // and instead it'll run the latest animation frame
+        
         animFrame = window.requestAnimationFrame(function() {
             var _a, _b;
             var x, y;
-            // handle mobile first, otherwise desktop/laptop
+           
             if (event.touches) {
                 _a = [event.touches[0].clientX, event.touches[0].clientY], x = _a[0], y = _a[1];
             } else {
@@ -227,36 +204,36 @@ var getPointerInput = function(callback, element, delay) {
             }
             pointer.x = x;
             pointer.y = y;
-            // pointer has moved at least once
+            
             if (!pointer.hasMoved) {
                 pointer.hasMoved = true;
             }
-            // pointer is currently moving
+           
             pointer.wasMoving = pointer.isMoving;
             pointer.isMoving = true;
-            // send the current pointer data to it's consumers
+            
             callback(pointer);
-            // if timer already exists, clear it
+           
             if (timer) {
                 timer = clearTimeout(timer);
             }
-            // start a new timer and store it
+            
             timer = setTimeout(function() {
-                // pointer is no longer moving
+               
                 pointer.wasMoving = pointer.isMoving;
                 pointer.isMoving = false;
-                // send the current pointer data to it's consumers again because we stopped moving
+                
                 callback(pointer);
             }, delay);
         });
     };
-    // set up the handlers ^.^
+
     element.addEventListener('touchstart', function(e) { return handlePointer(e); }, true);
     element.addEventListener('touchmove', function(e) { return handlePointer(e); }, true);
     element.addEventListener('mousemove', function(e) { return handlePointer(e); }, true);
     return false;
 };
-var StarField = /** @class */ (function() {
+var StarField = (function() {
     function StarField(howManyStars, canvas, depth, UIFadeDelay) {
         var _this = this;
         if (depth === void 0) { depth = 2; }
@@ -278,7 +255,7 @@ var StarField = /** @class */ (function() {
         this.mouseX = 0;
         this.mouseY = (canvas.offsetHeight * 0.25) - 66;
         this.UIFadeDelay = UIFadeDelay;
-        // this is where the pointer data affects the animation via xSpeed and zSpeed
+        
         var handlePointer = function(pointer) {
             var _a = _this.screen,
                 width = _a[0],
@@ -296,27 +273,25 @@ var StarField = /** @class */ (function() {
                 _this.zSpeed /= 2;
             }
         };
-        // getPointerInput doesn't control the animation, just passes pointer data to the callback
+        
         getPointerInput(handlePointer);
         this.mouseMoved = false;
         this.mouseMoving = false;
         this.mouseControlAlpha = 0.1;
         this.showMouseControls = true;
         this.pauseAnimation = false;
-        // just the initial render, doesn't start the loop
+        
         this.render();
         window.addEventListener('resize', function() { return _this.handleResize(); }, true);
-        // helps when you navigate away from the page for a while, prevents stars grouping up into one big wall
-        // #fuckthewall lol
+        
         window.addEventListener("beforeunload", function() { return _this.rePopulateStarField(); });
-        // not in use yet
-        // document.addEventListener("deviceorientation", (e) => this.handleOrientation(e), true);
+       
     }
-    // where the magic happens
+   
     StarField.prototype.startRenderLoop = function() {
         var _this = this;
         var renderLoop = function(timestamp) {
-            timestamp *= 0.001; // convert to seconds
+            timestamp *= 0.001; 
             _this.deltaTime = timestamp - _this.prevTime;
             _this.prevTime = timestamp;
             if (!_this.pauseAnimation) {
@@ -334,7 +309,7 @@ var StarField = /** @class */ (function() {
         this.pauseAnimation = false;
     };
     StarField.prototype.setCanvasSize = function() {
-        // fit canvas to parent
+       
         this.canvas.width = this.canvas.parentElement.offsetWidth;
         this.canvas.height = this.canvas.parentElement.offsetHeight;
         var width = canvas.offsetWidth,
@@ -343,14 +318,14 @@ var StarField = /** @class */ (function() {
             depth = size * this.containerDepth,
             screen = [width, height],
             container = [size, depth];
-        // set latest sizes
+        
         this.container = container;
         this.screen = screen;
-        // center
+       
         this.context.translate(width / 2, height / 2);
     };
     StarField.prototype.populateStarField = function() {
-        // fill an array with Star instances
+        
         for (var i = 0; i < this.stars.length; i++) {
             this.stars[i] = new Star(this.container);
         }
@@ -388,19 +363,16 @@ var StarField = /** @class */ (function() {
     StarField.prototype.render = function() {
         if (this.showMouseControls) {
             if (!this.mouseMoved || this.mouseMoving) {
-                // when mouse is moving, make controls visible instantly
+                
                 this.mouseControlAlpha = 0.3;
                 this.drawMouseControl();
             } else {
-                // when mouse stops moving, start fading out the opacity slowly
-                // TODO: make it actually time based so it fades out over the period you pass it
-                // just kinda hacked in a rough approximation by feel on my machine lol
-                // good enough for now
+               
                 this.mouseControlAlpha -= (0.25 * this.deltaTime) / this.UIFadeDelay;
                 this.drawMouseControl();
             }
         }
-        // update and draw all the stars
+        
         for (var i = 0; i < this.stars.length; i++) {
             if (!this.pauseAnimation) {
                 this.stars[i].update(this.deltaTime, this.container, this.xSpeed, this.zSpeed);
@@ -410,17 +382,17 @@ var StarField = /** @class */ (function() {
     };
     StarField.prototype.rePopOnResizeStop = function() {
         if (this.isResizing && !this.wasResizing) {
-            // console.log('started');
+            
         }
         if (!this.isResizing && this.wasResizing) {
-            // console.log('stopped');
+            
             this.rePopulateStarField();
         }
     };
     StarField.prototype.handleResize = function() {
         var _this = this;
         this.pause();
-        // if a resizing timer exists already clear it out
+        
         if (this.resizeTimer) {
             this.resizeTimer = clearTimeout(this.resizeTimer);
         }
@@ -444,7 +416,7 @@ var StarField = /** @class */ (function() {
         }, 200);
     };
     StarField.prototype.handleOrientation = function(event) {
-        // TODO: uh, implement this lol
+       
     };
     return StarField;
 }());
