@@ -1,6 +1,6 @@
 self.__uv$config = {
-    prefix: '/galaxy/',
-    bare: 'https://lucidofficial.xyz/bare/',
+    prefix: '/void/',
+    bare: '/bare/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
     handler: '/uv/uv.handler.js',
