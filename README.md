@@ -17,5 +17,5 @@ An intersetlar Proxy Site!
 [![Remix on Glitch](https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/master/buttons/remade/glitch.svg)](https://glitch.com/edit/#!/import/github/Calco-Proxy/Galaxy)
 
 
-#Credits 
+# Credits 
 - Made by illusions & pyro
