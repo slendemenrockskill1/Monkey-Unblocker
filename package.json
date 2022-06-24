@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@tomphttp/bare-server-node": "^1.0.2-beta-readme2",
     "bare-server-node": "github:tomphttp/bare-server-node",
     "chalk": "^5.0.1",
     "dotenv": "^16.0.0",
