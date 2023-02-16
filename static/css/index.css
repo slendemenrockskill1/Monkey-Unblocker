@@ -143,6 +143,24 @@ html {
     cursor: pointer;
     transition: all 0.5s ease-in-out;
 }
+.gamesite {
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
+    background-color: rgba(59, 56, 56, 0.356);
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1em;
+    color: white;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
 
 .discord-btn:hover {
     background-color: rgba(77, 67, 168, 0.356);
