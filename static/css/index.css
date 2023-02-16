@@ -168,6 +168,12 @@ html {
     scale: 1.1;
     cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='yellow' r='4'/%3E%3C/svg%3E") 3 3, auto;
 }
+.ds:hover {
+    background-color: rgba(77, 67, 168, 0.356);
+    color: rgba(255, 255, 255, 0.534);
+    scale: 1.1;
+    cursor: url("data:image/svg+xml,%3Csvg height='6' width='6' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' fill='yellow' r='4'/%3E%3C/svg%3E") 3 3, auto;
+}
 .discord-btn:hover {
     background-color: rgba(77, 67, 168, 0.356);
     color: rgba(255, 255, 255, 0.534);
